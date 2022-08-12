@@ -1,38 +1,34 @@
 from survey import Survey
 
+from datetime import datetime
+
+employer = Survey()
+
 
 def do():
-
-    employer = Survey()
     employer.takeSurvey()
 
 
-# def logStats():
-    # 実装中
+def logStatus(userName):
+    file = open("log.txt", "a")
+
+    # Create a date/time object to get the current date and time
+    now = datetime.now()
+    # Formatting the output of the date and time to dd/mm/YY H:M:S
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    file.write("\n\ndate and time = " + dt_string)
+    # Writing the statistics to a file
+
+    stressPoint = employer.getStressPointValue()
+
+    file.write("\n" + userName + ":" + stressPoint)
 
 
 def main():
     # Play one game
-    print("Welcome to employee survey.")
+    userName = input("Welcome to employee survey.\nWhat is your name?:")
     do()
-    number = 0
-
-    while number <= 0 or number > 5:
-        user_input = input("How many games would you want to have tested: ")
-
-        # Check if a valid number is entered
-        try:
-            number = int(user_input)
-
-            # check if the number entered is > 0
-            if number <= 0:
-                print("Please enter in a positive number.")
-                number = 0
-            elif number > 5:
-                print("Please enter number less than five.")
-                number = 0
-        except ValueError:
-            print("Please enter in a number from 1~5.")
+    logStatus(userName)
 
 
 if __name__ == "__main__":

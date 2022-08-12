@@ -31,9 +31,18 @@ class Survey(object):
             question = "Question No." + \
                 str(self.count) + " " + self.questions[self.count] + ':'
 
-            self.stressPoint = self.stressPoint + int(input(question))
+            try:
+                user_input_to_int = int(input(question))
+
+                if user_input_to_int <= 0 or user_input_to_int > 5:
+                    raise ValueError
+            except ValueError:
+                print("Please enter in a number from 1~5.")
+                self.count -= 1
+                continue
+
+            self.stressPoint = self.stressPoint + user_input_to_int
         return self.showResult()
 
-    def __str__(self):
-        """Returns a string representation of the last roll."""
-        return "Your stress point is" + str(self.stressPoint)
+    def getStressPointValue(self):
+        return str(self.stressPoint)
